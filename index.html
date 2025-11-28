@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Penerimaan Tamu + Tiket Antrian</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    @media print {
+      body * { visibility: hidden; }
+      #tiketAntrian, #tiketAntrian * { visibility: visible; }
+      #tiketAntrian { position: absolute; left: 0; top: 0; background: white; }
+      .btn-tutup { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <img src="ombudsmanlogo.png" alt="Logo" class="logo"/>
+    <h1>FORM PENERIMAAN TAMU</h1>
+  </header>
+
+  <form id="tamuForm">
+    <div class="form-grid">
+      <div><label>Tanggal & Hari</label><input type="text" id="tanggalHari" readonly/></div>
+      <div><label>Waktu Kedatangan</label><input type="text" id="waktu" readonly/></div>
+
+      <div><label>Nama Lengkap <span class="required">*</span></label><input type="text" name="nama" required/></div>
+      <div><label>Alamat</label><input type="text" name="alamat"/></div>
+      <div><label>Instansi / Perusahaan</label><input type="text" name="instansi"/></div>
+      <div><label>Bertemu Dengan <span class="required">*</span></label><input type="text" name="menemui" required/></div>
+      <div><label>Keperluan / Urusan <span class="required">*</span></label><textarea name="urusan" rows="2" required></textarea></div>
+
+      <div>
+        <label>Sudah ada Janji?</label>
+        <select name="janji">
+          <option>Sudah</option>
+          <option selected>Belum </option>
+        </select>
+      </div>
+
+      <!-- FOTO KTP -->
+      <div class="full-width">
+        <label>Foto KTP <span class="required">*</span></label>
+        <button type="button" class="camera-btn" data-target="fileKtp">Ambil Foto KTP</button>
+        <input type="file" id="fileKtp" accept="image/*" capture="environment" style="display:none"/>
+        <img id="previewKtp" class="preview" src="" alt="Preview KTP" style="display:none;"/>
+        <small style="color:#d00;display:none" id="errKtp">Wajib ambil foto KTP!</small>
+        <input type="hidden" id="fotoKtpBase64"/>
+      </div>
+
+      <!-- FOTO WAJAH -->
+      <div class="full-width">
+        <label>Foto Wajah (Close-up) <span class="required">*</span></label>
+        <button type="button" class="camera-btn" data-target="fileWajah">Foto Wajah Depan</button>
+        <input type="file" id="fileWajah" accept="image/*" capture="user" style="display:none"/>
+        <img id="previewWajah" class="preview" src="" alt="Preview Wajah" style="display:none;"/>
+        <small style="color:#d00;display:none" id="errWajah">Wajib foto wajah close-up!</small>
+        <input type="hidden" id="fotoWajahBase64"/>
+      </div>
+
+      <div class="full-width">
+        <label>Keterangan Tambahan</label>
+        <textarea name="keterangan" rows="3"></textarea>
+      </div>
+    </div>
+
+    <button type="submit" id="main-submit">SUBMIT & CETAK NOMOR ANTRIAN</button>
+  </form>
+</div>
+
+<!-- TIKET ANTRIAN -->
+<div id="tiketAntrian">
+  <div class="tiket-box">
+    <h2>TIKET ANTRIAN TAMU</h2>
+    <div class="nomor-besar" id="nomorAntrian">001</div>
+    <p><strong>Nama:</strong> <span id="tiketNama"></span></p>
+    <p><strong>Bertemu:</strong> <span id="tiketMenemui"></span></p>
+    <p><strong>Waktu:</strong> <span id="tiketWaktu"></span></p>
+    <p><strong>Tanggal:</strong> <span id="tiketTanggal"></span></p>
+    <button class="btn-print" onclick="window.print()">CETAK TIKET</button>
+    <button class="btn-print btn-tutup" id="btnTutup">TUTUP</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
